@@ -1,0 +1,26 @@
+<div class="tab-content">
+    <div class="container" aria-labelledby="tab-login">
+      <h3>Enter OTP</h3><br>
+       <form [formGroup]="loginform" (ngSubmit)="onSubmit()">
+         <div >
+            <div>
+              <label for="otp"><span style="color:red;" >*</span> Enter OTP:</label>
+              <input [ngClass]="{'is-invalid':submited 
+                     && loginformcontrol.otp.errors}" 
+                     type="number" name="otp" placeholder="OTP" 
+                     class="form-control" 
+                     formControlName="otp" maxlength="4">
+             </div>
+
+             <div *ngIf="(loginformcontrol.otp.touched) 
+                     && loginformcontrol.otp.errors">
+                <small style="color: red;">
+                    OTP is Required
+               </small>
+             </div>
+     
+          
+
+             <button class="btn btn-primary btnLoginRegister" type="submit">Submit</button>&nbsp;
+             
+             

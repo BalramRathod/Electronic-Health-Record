@@ -1,0 +1,501 @@
+
+
+
+<p>
+  <mat-toolbar color="primary">
+    <span>
+      <button mat-raised-button ></button></span>
+    <span class="example-spacer"></span>
+
+    <button
+      mat-raised-button
+
+      style="margin-right: 30px"
+      class="btn btn-success" (click)="Add()" data-toggle="modal" data-target="#exampleModal">
+      Book Appointment
+    </button>
+
+    <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+  </mat-toolbar>
+</p>
+
+
+<h1><b style="color: brown;">Wellcome to Patient Dashboard!!</b></h1>
+<br />
+<br />
+
+
+
+
+        <!-- open add appointment model  -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLabel">Book Appointment</h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="loginform">
+          <div>
+            <div>
+              <label for="date"> <span style="color: red;">*</span>
+                Date:</label>
+              <input [ngClass]="{'is-invalid':submited &&
+                  loginformcontrol.date.errors}" type="date" name="date" class="form-control"
+                formControlName="date" (click)="updateflag()" min="2023-04-04" max="2023-08-1" >
+            </div>
+            <div *ngIf="(loginformcontrol.date.touched)
+                    && loginformcontrol.date.errors">
+              <small style="color: red;">
+                Required
+              </small>
+            </div>
+
+            <div>
+
+              <label for="time"> <span style="color:red;">*</span>
+                Choose a Time:</label><br>
+              <select [ngClass]="{'is-invalid':submited &&
+                 loginformcontrol.time.errors}" class="dropdown form-control" name="time" id="time"
+                formControlName="time">
+                <option value="">Choose Time</option>
+                <option *ngFor="let time of timeSlot;let x=index" value={{time}}>
+                  {{time}}</option>
+
+                <div *ngIf="(loginformcontrol.time.touched)
+                    && loginformcontrol.time.errors">
+                  <small style="color: red;">
+                    Required
+                  </small>
+                </div>
+
+              </select>
+              <label for="AmPm"> <span style="color:red;">*</span>
+                Choose AM/PM </label><br>
+              <select [ngClass]="{'is-invalid':submited &&
+                loginformcontrol.AmPm.errors}" class="dropdown form-control" name="AmPm" id="AmPm"
+                formControlName="AmPm">
+                <option value="">Choose AM/PM</option>
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+              </select>
+
+            </div>
+            <div *ngIf="(loginformcontrol.AmPm.touched)
+                    && loginformcontrol.AmPm.errors">
+              <small style="color: red;">
+                Required
+              </small>
+            </div>
+
+            <div>
+              <label for="speciality"> <span style="color:red;">*</span>
+                Speciality </label><br>
+              <select [ngClass]="{'is-invalid':submited &&
+             loginformcontrol.speciality.errors}" class="dropdown form-control" name="speciality" id="speciality"
+                formControlName="speciality" (change)="getByProvider($event)">
+
+                <option *ngFor="let speciality of Speciality" value={{speciality.id}}>
+                  {{speciality.speciality}}</option>
+              </select>
+            </div>
+            <div *ngIf="(loginformcontrol.speciality.touched)
+                    && loginformcontrol.speciality.errors">
+              <small style="color: red;">
+                Required
+              </small>
+            </div>
+            <div>
+              <label for="provider"> <span style="color:red;">*</span>
+                Provider </label><br>
+              <select [ngClass]="{'is-invalid':submited &&
+        loginformcontrol.provider.errors}" class="dropdown form-control" name="provider" id="provider"
+                formControlName="provider">
+                <option *ngFor="let p of provider" value={{p.providerId}}>
+                  {{p.first_name}}</option>
+              </select>
+            </div>
+            <div *ngIf="(loginformcontrol.provider.touched) &&
+                  loginformcontrol.provider.errors">
+              <small style="color: red;">
+                Required
+              </small>
+            </div>
+            <!-- <div>
+              <p>Note:<span style="color:red;">*</span></p>
+              <textarea style="height: 51px" class="address form-control" id="tutorial" name="tutorial" rows="4"
+                cols="40" formControlName="note">
+              </textarea>
+
+            </div> -->
+            <!--  -->
+            <div>
+              <label for="note">
+
+                Note:
+              </label>
+
+              <input type="text" name="l_name" class="form-control"
+                placeholder="Please full fill discription" formControlName="note" >
+            </div>
+            <!--  -->
+
+
+
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button *ngIf="form_flag=='add'" type="button" class="btn btn-primary"
+                (click)="addAppointments()">Add</button>
+              <button *ngIf="form_flag=='edit'" type="button" class="btn btn-primary"
+                (click)="Edit2()">Update</button>
+
+            </div>
+
+
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Add</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        <!-- close add appointment model  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ************ -->
+
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-inverse">
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+
+      <li>
+         <h3 (click)="gotoDashboard()">Dashboard</h3>
+      </li>
+
+
+     <button style="margin-left: 1013px;
+        margin-right: 20px;height: 41px; "  class="btn btn-danger" (click)="logout()" >
+      Logout
+     </button>
+    </ul>
+
+  </div>
+</nav> -->
+
+
+
+<!-- <button style="margin-top: 10px;
+               margin-left: 23px;
+               margin-bottom: 10px;" type="button" class="btn btn-secondary" data-bs-toggle="modal"
+  data-bs-target="#Modal" (click)="Add()"> Add Appointment
+</button> -->
+
+
+<!-- Modal -->
+<div class="modal" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h2 *ngIf="form_flag=='add'" style="text-align: center;"><b>
+            <hr>Add Appointment
+          </b></h2>
+
+        <h2 *ngIf="form_flag=='edit'" style="text-align: center; ;"><b>
+            <hr>Update Appointment
+          </b></h2>
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <!-- <app-addproduct-form></app-addproduct-form> -->
+
+        <!-- start -->
+
+
+        <div class="tab-content">
+          <div class="container form" aria-labelledby="tab-login">
+            <!-- <form [formGroup]="loginform">
+              <div>
+                <div>
+                  <label for="date"> <span style="color: red;">*</span>
+                    Date:</label>
+                  <input [ngClass]="{'is-invalid':submited &&
+                      loginformcontrol.date.errors}" type="date" name="date" class="form-control"
+                    formControlName="date" (click)="updateflag()" min="2023-04-04" max="2023-08-1" >
+                </div>
+                <div *ngIf="(loginformcontrol.date.touched)
+                        && loginformcontrol.date.errors">
+                  <small style="color: red;">
+                    Required
+                  </small>
+                </div>
+
+                <div>
+
+                  <label for="time"> <span style="color:red;">*</span>
+                    Choose a Time:</label><br>
+                  <select [ngClass]="{'is-invalid':submited &&
+                     loginformcontrol.time.errors}" class="dropdown form-control" name="time" id="time"
+                    formControlName="time">
+                    <option value="">Choose Time</option>
+                    <option *ngFor="let time of timeSlot;let x=index" value={{time}}>
+                      {{time}}</option>
+
+                    <div *ngIf="(loginformcontrol.time.touched)
+                        && loginformcontrol.time.errors">
+                      <small style="color: red;">
+                        Required
+                      </small>
+                    </div>
+
+                  </select>
+                  <label for="AmPm"> <span style="color:red;">*</span>
+                    Choose AM/PM </label><br>
+                  <select [ngClass]="{'is-invalid':submited &&
+                    loginformcontrol.AmPm.errors}" class="dropdown form-control" name="AmPm" id="AmPm"
+                    formControlName="AmPm">
+                    <option value="">Choose AM/PM</option>
+                    <option value="AM">AM</option>
+                    <option value="PM">PM</option>
+                  </select>
+
+                </div>
+                <div *ngIf="(loginformcontrol.AmPm.touched)
+                        && loginformcontrol.AmPm.errors">
+                  <small style="color: red;">
+                    Required
+                  </small>
+                </div>
+
+                <div>
+                  <label for="speciality"> <span style="color:red;">*</span>
+                    Speciality </label><br>
+                  <select [ngClass]="{'is-invalid':submited &&
+                 loginformcontrol.speciality.errors}" class="dropdown form-control" name="speciality" id="speciality"
+                    formControlName="speciality" (change)="getByProvider($event)">
+
+                    <option *ngFor="let speciality of Speciality" value={{speciality.id}}>
+                      {{speciality.speciality}}</option>
+                  </select>
+                </div>
+                <div *ngIf="(loginformcontrol.speciality.touched)
+                        && loginformcontrol.speciality.errors">
+                  <small style="color: red;">
+                    Required
+                  </small>
+                </div>
+                <div>
+                  <label for="provider"> <span style="color:red;">*</span>
+                    Provider </label><br>
+                  <select [ngClass]="{'is-invalid':submited &&
+            loginformcontrol.provider.errors}" class="dropdown form-control" name="provider" id="provider"
+                    formControlName="provider">
+                    <option *ngFor="let p of provider" value={{p.providerId}}>
+                      {{p.first_name}}</option>
+                  </select>
+                </div>
+                <div *ngIf="(loginformcontrol.provider.touched) &&
+                      loginformcontrol.provider.errors">
+                  <small style="color: red;">
+                    Required
+                  </small>
+                </div>
+                <div>
+                  <p>Note:<span style="color:red;">*</span></p>
+                  <textarea style="height: 51px" class="address form-control" id="tutorial" name="tutorial" rows="4"
+                    cols="40" formControlName="note">
+                  </textarea>
+
+                </div>
+
+                <div class="modal-footer">
+                  <button id="close" type="button" data-bs-dismiss="modal" class="btn btn-secondary">Close</button>
+                  <button *ngIf="form_flag=='add'" type="button" class="btn btn-primary"
+                    (click)="addAppointments()">Add</button>
+                  <button *ngIf="form_flag=='edit'" type="button" class="btn btn-primary"
+                    (click)="Edit2()">Update</button>
+
+                </div>
+
+
+              </div>
+
+            </form> -->
+          </div>
+        </div>
+        <!-- end -->
+      </div>
+
+    </div>
+  </div>
+</div>
+<div *ngIf="show=='empty'"><h3>No Appointment found!</h3></div>
+
+<div *ngIf="show=='show'&&SOAP!='true'" class="container">
+
+  <!-- our table -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Provider Name</th>
+        <th>Appointment Date</th>
+        <th>Appointment Time</th>
+        <th>Note</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let data of AppointmentsList">
+        <td>{{data.first_name+" "+data.last_name}}</td>
+        <td>{{data.appointmentDate.substring(0,10)}}</td>
+        <td>{{data.appointmentTime}}</td>
+        <td>{{data.note}}</td>
+        <td>{{data.appointmentStatus}}</td>
+        <td *ngIf="data.appointmentStatus=='Completed'|| data.appointmentStatus=='Booked'"><button
+          class="btn btn-outline-primary"  (click)="SOAPShow(data.appointmentId,data.appointmentStatus)" >View</button></td>
+          <!-- (click)="SOAPShow(data.appointmentId,data.appointmentStatus)" -->
+        <td *ngIf="data.appointmentStatus!='Completed'&& data.appointmentStatus!='Booked'" style="padding: 6px" >No Action</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+
+
+
+</div>
+
+<div *ngIf="SOAP=='true'" class="container" style="    width: 520px;margin-left: 24px;">
+
+  <h2>Soap Note</h2>
+  <span> <b> Subjective : </b></span>  <span>{{SOAPDetails.subjective}}</span><br>
+  <span> <b> Objective : </b></span>   <span>{{SOAPDetails.objective}}</span><br>
+  <span> <b> Assessment : </b></span>  <span>{{SOAPDetails.assessment}}</span><br>
+  <span> <b> Plan : </b></span>        <span>{{SOAPDetails.plan}}</span><br>
+  <button style="margin-left: 64px;
+                margin-bottom: 20px;
+                margin-top: 20px;"
+                 class="btn btn-danger"
+                 (click)="closeSOAP()"> Close</button>
+
+</div>
+
+
+
+
+
+

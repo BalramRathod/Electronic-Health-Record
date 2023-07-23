@@ -1,0 +1,18 @@
+.tab-content{
+    width: 40%!important;
+    margin: auto!important;
+    }
+
+    .container{
+        background-color: #f3f3f3;
+        box-shadow: 10px,10px;
+        box-sizing: border-box;
+        box-shadow: 5px 5px 5px #7c7979;
+        margin-top: 20px;
+    }
+    .btnLoginRegister{
+        margin-block-end: 30px;
+        margin-left: 41%;
+        margin-block-start: 30px;
+    }
+    

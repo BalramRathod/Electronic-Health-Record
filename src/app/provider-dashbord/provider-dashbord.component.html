@@ -1,0 +1,400 @@
+
+
+
+
+<p>
+  <mat-toolbar color="primary">
+    <span>
+      <!-- (click)="Profile()" -->
+      <button mat-raised-button class="btn btn-success"  (click)="Profile()" data-toggle="modal" data-target="#exampleModal">My Profile </button></span>
+    <span class="example-spacer"></span>
+
+    <!-- <button
+      mat-raised-button
+
+      style="margin-right: 30px"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+      data-bs-target="#Modal" 
+
+    >
+      Add Appointment
+    </button> -->
+
+    <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+  </mat-toolbar>
+</p>
+
+
+   <!-- <div *ngFor="let data of AppointmentsList">
+
+  <h1><b style="color: brown;">Wellcome to {{data.firstName+' '+' '+data.lastName}}</b></h1>
+  
+</div> -->
+
+
+<h1><b style="color: brown;">Wellcome to Provider Dashboard!!</b></h1>
+<br />
+<br />
+
+
+
+
+
+
+
+
+
+
+<!-- open profile form  -->
+
+<div *ngIf="showFlag=='show'">
+  <button class="btn btn-danger" (click)="gotoDashboard()">
+     back </button>
+</div>
+
+
+
+
+<!-- ********************************** -->
+
+
+        <!-- Open Profile Modal  -->
+
+        <!-- Button trigger modal -->
+        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+          Launch demo modal
+        </button> -->
+        
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Profile</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form [formGroup]="loginform" (ngSubmit)="onSubmit()">
+                  <div>
+                    <div>
+                      <label for="f_name">
+                        <span style="color:red;">
+                          *</span>
+                        First Name:
+                      </label>
+                      <input [ngClass]="{'is-invalid':submited
+                                       && loginformcontrol.f_name.errors}" type="text" name="f_name" class="form-control"
+                        placeholder="First Name" formControlName="f_name" (click)="updateButtonFlag()">
+                    </div>
+            
+                    <div *ngIf="(loginformcontrol.f_name.touched) &&
+                                  loginformcontrol.f_name.errors">
+                      <small style="color: red;">
+                        First name is required
+                      </small>
+                    </div>
+            
+                    <div>
+                      <label for="l_name">
+                        <span style="color:red;">
+                          *
+                        </span>
+                        Last Name:
+                      </label>
+            
+                      <input [ngClass]="{'is-invalid':submited &&
+                                       loginformcontrol.l_name.errors}" type="text" name="l_name" class="form-control"
+                        placeholder="Last Name" formControlName="l_name" (click)="updateButtonFlag()">
+                    </div>
+            
+                    <div *ngIf="(loginformcontrol.l_name.touched)
+                                  && loginformcontrol.l_name.errors">
+                      <small style="color: red;">
+                        Last name is required
+                      </small>
+                    </div>
+            
+            
+                    <div>
+                      <label for="email">
+                        <span style="color:red;">
+                          *
+                        </span>
+                        Email:
+                      </label>
+            
+                      <input [ngClass]="{'is-invalid':submited &&
+                                       loginformcontrol.email.errors}" type="email" name="email" class="form-control"
+                        placeholder="Email" formControlName="email" readonly>
+                    </div>
+            
+                    <div *ngIf="(loginformcontrol.email.touched)
+                                  && loginformcontrol.email.errors">
+                      <small style="color: red;">
+                        Email is required(Ex: ram@gmail.com)
+                      </small>
+                    </div>
+            
+                    <div>
+                      <label for="Mobile">
+                        <span style="color:red;">
+                          *
+                        </span>
+                        Mobile:
+                      </label>
+            
+                      <input [ngClass]="{'is-invalid':submited &&
+                                       loginformcontrol.mobile.errors}" type="text" name="Mobile" class="form-control"
+                        placeholder="Mobile" formControlName="mobile" minlength="10" maxlength="12" pattern="[0-9]+"
+                        (click)="updateButtonFlag()">
+                    </div>
+            
+                    <div *ngIf="(loginformcontrol.mobile.touched)
+                                    && loginformcontrol.mobile.errors">
+                      <small style="color: red;">
+                        plese enter valid number
+                      </small>
+                    </div>
+            
+            
+                    <div>
+                      <label for="DOB">
+                        <span style="color:red;">
+                          *
+                        </span>
+                        Date of birth:
+                      </label>
+                      <input [ngClass]="{'is-invalid':submited &&
+                                       loginformcontrol.DOB.errors}" type="date" name="DOB" class="form-control" placeholder="DOB"
+                        formControlName="DOB" min="1950-05-11" max="2023-04-04" (click)="updateButtonFlag()">
+                    </div>
+            
+                    <div *ngIf="(loginformcontrol.DOB.touched)
+                                 && loginformcontrol.DOB.errors">
+                      <small style="color: red;">
+                        Required
+                      </small>
+                    </div>
+            
+                    <div>
+                      <label for="Experience">
+                        <span style="color:red;">
+                          *
+                        </span>
+                        Experience :
+                      </label>
+                      <input [ngClass]="{'is-invalid':submited &&
+                                       loginformcontrol.Experience.errors}" type="number" name="Experience" class="form-control"
+                        placeholder="Experience" formControlName="Experience" min="0" max="60" (click)="updateButtonFlag()">
+                    </div>
+            
+                    <div *ngIf="(loginformcontrol.Experience.touched)
+                                  && loginformcontrol.Experience.errors">
+                      <small style="color: red;">
+                        Required(max:60)
+                      </small>
+                    </div>
+            
+                    <div>
+                      <label for="speciality">
+                        <span style="color:red;">
+                          *
+                        </span>
+                        Speciality
+                      </label><br>
+                      <select [ngClass]="{'is-invalid':submited &&
+                                        loginformcontrol.speciality.errors}" class="dropdown form-control" name="speciality"
+                        id="speciality" formControlName="speciality" (click)="updateButtonFlag()">
+            
+                        <option *ngFor="let speciality of Speciality" value={{speciality.id}}>
+                          {{speciality.speciality}}
+                        </option>
+                      </select>
+            
+                    </div>
+                    <div *ngIf="(loginformcontrol.speciality.touched)
+                                      && loginformcontrol.speciality.errors">
+                      <small style="color: red;">
+                        Required
+                      </small>
+                    </div>
+            
+            
+                    <div>
+                      <label for="Position">
+                        <span style="color:red;">
+                          *
+                        </span>
+                        Position:
+                      </label>
+                      <input [ngClass]="{'is-invalid':submited &&
+                                       loginformcontrol.Position.errors}" type="text" name="Position" class="form-control"
+                        placeholder="Position" formControlName="Position" (click)="updateButtonFlag()">
+                    </div>
+            
+                    <div *ngIf="(loginformcontrol.Position.touched)
+                              && loginformcontrol.Position.errors">
+                      <small style="color: red;">
+                        Required
+                      </small>
+                    </div>
+
+            <!--  -->
+            <div>
+              <label for="Address">
+                <span style="color:red;">
+                  *
+                </span>
+                Address:
+              </label>
+              <input [ngClass]="{'is-invalid':submited &&
+                               loginformcontrol.Position.errors}" type="text" name="Position" class="form-control"
+                placeholder="Adress" formControlName="address" (click)="updateButtonFlag()">
+            </div>
+                <div *ngIf="(loginformcontrol.address.touched)
+                && loginformcontrol.address.errors">
+                <small style="color: red;">
+                Required
+                </small>
+                </div>
+                      <button [disabled]="!updateFlag" class="btn btn-primary btnLoginRegister" type="submit">Update</button>&nbsp;
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            
+            
+                    <div *ngIf="loader" class="cssload-container">
+                      <div class="cssload-speeding-wheel"></div>
+                    </div>
+            
+                  </div>
+            
+                </form>
+              </div>
+              <div class="modal-footer">
+                   <!--  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button [disabled]="!updateFlag" class="btn btn-primary btnLoginRegister" type="submit" >Update</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+                <!-- close Profile Modal  -->
+
+<!-- ********************************** -->
+
+<!-- close profile form  -->
+
+<h3 *ngIf="!isEmpty() && table==''" style="margin-top: 42px;
+margin-left: 38px;">No Appointment Available!</h3>
+
+<div *ngIf="table==''&& isEmpty()">
+  <div class="container">
+    <table class="table table-striped">
+      <tr>
+        <th>Patient Name</th>
+        <th>Appointment Date</th>
+        <th>Appointment Time</th>
+        <th>Note</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+      <tr *ngFor="let data of AppointmentsList">
+        <td>{{data.firstName+" "+data.lastName}} </td>
+        <td>{{data.appointmentDate.substring(0,10)}}</td>
+        <td>{{data.appointmentTime}}</td>
+        <td>{{data.note}}</td>
+        <td>{{data.appointmentStatus=='Booked'?'open':data.appointmentStatus}}</td>
+        <td *ngIf="data.appointmentStatus=='Booked'"><button class="btn btn-outline-primary"
+            (click)="view(data.appointmentId)">View</button></td>
+        <td *ngIf="data.appointmentStatus!='Booked'"  class="btn btn-outline-primary" >View</td>
+        <td *ngIf="data.appointmentStatus=='Booked'"><button class="btn btn-outline-danger"
+            (click)="cancal(data.appointmentId)">Cancel</button></td>
+
+      </tr>
+    </table>
+  </div>
+
+
+</div>
+
+<div *ngIf="modal=='SOAPmodal'">
+  <div class="tab-content">
+    <div class="container form" style="height: 500px" aria-labelledby="tab-login">
+      <form [formGroup]="SOAP">
+        <div>
+          <div>
+            <h2>Soap Note</h2><br>
+            <label for="Subjective"> <span style="color: red;">*</span>
+              Subjective:</label>
+            <textarea [ngClass]="{'is-invalid':submited &&
+                        SOAPControl.subjective.errors}" type="text" name="date" class="form-control"
+              formControlName="subjective"></textarea>
+          </div>
+          <div *ngIf="(SOAPControl.subjective.touched)
+                           && SOAPControl.subjective.errors">
+            <small style="color: red;">
+              Required
+            </small>
+          </div>
+
+          <label for="Objective"> <span style="color: red;">*</span>
+            Objective:</label>
+          <textarea [ngClass]="{'is-invalid':submited &&
+                    SOAPControl.Objective.errors}" type="text" name="Objective" class="form-control"
+            formControlName="Objective"></textarea>
+        </div>
+        <div *ngIf="(SOAPControl.Objective.touched)
+                       && SOAPControl.Objective.errors">
+          <small style="color: red;">
+            Required
+          </small>
+        </div>
+
+
+
+
+        <label for="Assessment"> <span style="color: red;">*</span>
+          Assessment:</label>
+        <textarea [ngClass]="{'is-invalid':submited &&
+                SOAPControl.Assessment.errors}" type="text" name="Assessment" class="form-control"
+          formControlName="Assessment"></textarea>
+        <div *ngIf="(SOAPControl.Assessment.touched)
+                   && SOAPControl.Assessment.errors">
+          <small style="color: red;">
+            Required
+          </small>
+        </div>
+
+
+
+
+        <label for="Plan"> <span style="color: red;">*</span>
+          Plan:</label>
+        <textarea [ngClass]="{'is-invalid':submited &&
+            SOAPControl.Plan.errors}" type="text" name="Plan" class="form-control" formControlName="Plan"
+          style="margin-bottom: 20px"></textarea>
+        <div *ngIf="(SOAPControl.Plan.touched)
+               && SOAPControl.Plan.errors">
+          <small style="color: red;">
+            Required
+          </small>
+        </div>
+
+
+        <div class="modal-footer">
+          <button id="close" type="button" (click)="closeView()" class="btn btn-secondary">Close</button>
+          <button type="button" class="btn btn-primary" (click)="Submit()" style="margin-left: 12px;
+                     margin-right: 155px;">Add</button>
+
+
+        </div>
+
+
+
+
+
+
+
+
+

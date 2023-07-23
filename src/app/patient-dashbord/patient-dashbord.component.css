@@ -1,0 +1,28 @@
+.container{
+    background-color: initial;
+    box-shadow: 10px,10px;
+    box-sizing: border-box;
+    box-shadow: 5px 5px 5px #7c7979;
+    margin-top: auto;
+
+}
+
+
+
+.container{
+  margin-top: 2%;
+  padding:  0px;
+  text-align: left;
+
+
+  /* background-color: thistle; */
+  box-shadow: 10px,10px;
+  box-sizing: border-box;
+  box-shadow: 5px 5px 5px #7c7979;
+  margin-top: auto;
+
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
